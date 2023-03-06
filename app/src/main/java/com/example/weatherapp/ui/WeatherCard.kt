@@ -39,7 +39,6 @@ fun WeatherCard(
             ) {
                 Text(
                     text = "Your location",
-//                    modifier = Modifier.align(Alignment.Center),
                     color = Color.White
                 )
                 Spacer(modifier = Modifier.height(16.dp))

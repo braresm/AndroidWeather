@@ -9,15 +9,15 @@ import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.*
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import com.example.weatherapp.ui.WeatherCard
+import com.example.weatherapp.ui.WeatherForecast
 import com.example.weatherapp.ui.theme.WeatherAppTheme
 import com.example.weatherapp.ui.view.WeatherViewModel
 import dagger.hilt.android.AndroidEntryPoint
@@ -56,7 +56,12 @@ class MainActivity : ComponentActivity() {
                             .background(Color.LightGray)
                     ) {
                         WeatherCard(state = weatherViewModel.state, backgroundColor = Color.Blue)
+                        Spacer(modifier = Modifier.height(16.dp))
+                        WeatherForecast(state = weatherViewModel.state)
                     }
+
+                    // TODO: Show "CircularProgressIndicator" if weatherViewModel.state.isLoading is true
+
                     weatherViewModel.state.error?.let { error ->
                         Text(
                             text = error,
