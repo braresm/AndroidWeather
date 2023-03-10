@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.weatherapp.ui.view.WeatherState
 import com.example.weatherapp.R
+import com.example.weatherapp.data.location.LocationTracker
 
 @Composable
 fun WeatherCard(
@@ -24,42 +25,41 @@ fun WeatherCard(
     backgroundColor: Color,
     modifier: Modifier = Modifier
 ) {
-
     state.weatherInfo?.currentWeather?.let { data ->
         Card(
             backgroundColor = backgroundColor,
-            shape = RoundedCornerShape(8.dp),
+            shape = RoundedCornerShape(16.dp),
             modifier = modifier.padding(16.dp)
         ) {
             Column(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(16.dp),
+                    .padding(10.dp),
                 horizontalAlignment = Alignment.CenterHorizontally
             ) {
                 Text(
                     text = "Your location",
                     color = Color.White
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 Image(
                     painter = painterResource(id = data.weatherIconType.icon),
                     contentDescription = null,
                     modifier = Modifier.width(200.dp)
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = "${data.temperature}°C",
                     fontSize = 48.sp,
                     color = Color.White
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(8.dp))
                 Text(
                     text = data.weatherIconType.description,
-                    fontSize = 24.sp,
+                    fontSize = 26.sp,
                     color = Color.White
                 )
-                Spacer(modifier = Modifier.height(16.dp))
+                Spacer(modifier = Modifier.height(10.dp))
                 Row(
                     modifier = Modifier.fillMaxWidth(),
                     horizontalArrangement = Arrangement.SpaceAround

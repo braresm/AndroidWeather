@@ -2,18 +2,25 @@ package com.example.weatherapp
 
 import android.Manifest
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.activity.viewModels
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.CircularProgressIndicator
+import androidx.compose.material.SnackbarDefaults.backgroundColor
 import androidx.compose.material.Text
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.layout.ContentScale
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.example.weatherapp.ui.WeatherCard
@@ -47,6 +54,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             WeatherAppTheme {
+
                 Box(
                     modifier = Modifier.fillMaxSize()
                 ) {
@@ -56,21 +64,33 @@ class MainActivity : ComponentActivity() {
                             .background(Color.LightGray)
                     ) {
                         WeatherCard(state = weatherViewModel.state, backgroundColor = Color.Blue)
-                        Spacer(modifier = Modifier.height(16.dp))
                         WeatherForecast(state = weatherViewModel.state)
                     }
 
-                    // TODO: Show "CircularProgressIndicator" if weatherViewModel.state.isLoading is true
-
-                    weatherViewModel.state.error?.let { error ->
-                        Text(
-                            text = error,
-                            color = Color.Red,
-                            textAlign = TextAlign.Center,
-                            modifier = Modifier.align(Alignment.Center)
-                        )
+                    if (weatherViewModel.state.isLoading) {
+                        Column(
+                            modifier = Modifier.padding(180.dp),
+                            horizontalAlignment = Alignment.CenterHorizontally
+                        ) {
+                            Row(
+                                modifier = Modifier.padding(8.dp),
+                                verticalAlignment = Alignment.CenterVertically
+                            ) {
+                                CircularProgressIndicator()
+                            }
+                        }
+                    } else {
+                        weatherViewModel.state.error?.let { error ->
+                            Text(
+                                text = error,
+                                color = Color.Red,
+                                textAlign = TextAlign.Center,
+                                modifier = Modifier.align(Alignment.Center)
+                            )
+                        }
                     }
                 }
+
             }
         }
     }

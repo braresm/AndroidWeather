@@ -66,4 +66,9 @@ class LocationTrackerImpl @Inject constructor(
             }
         }
     }
+
+    override suspend fun getNameLocation(): Location? {
+        TODO("Not yet implemented")
+        application.getSystemService(Context.LOCATION_SERVICE).toString()
+    }
 }
